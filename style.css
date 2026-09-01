@@ -5,189 +5,288 @@
     box-sizing: border-box;
 }
 
-html {
-    scroll-behavior: smooth;
-}
-
 body {
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     font-family: Arial, sans-serif;
-    background: #0f172a;
-    color: white;
+
+    background:
+        radial-gradient(circle at top, #ffe5ec, transparent 40%),
+        linear-gradient(135deg, #ffd6e0, #f7b7c8);
+
+    overflow-x: hidden;
 }
 
-/* MENU */
-
-nav {
-    height: 70px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    padding: 0 8%;
-
-    background: #111827;
-}
-
-nav h2 {
-    color: #60a5fa;
-}
-
-nav a {
-    color: white;
-    text-decoration: none;
-    margin-left: 25px;
-}
-
-nav a:hover {
-    color: #60a5fa;
-}
-
-/* GŁÓWNA SEKCJA */
-
-.hero {
-    min-height: 650px;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    gap: 50px;
-
-    padding: 80px 8%;
-}
-
-.hero > div {
-    animation: slideIn 1s ease;
-}
-
-.small {
-    color: #60a5fa;
-    font-weight: bold;
-    margin-bottom: 15px;
+.container {
+    text-align: center;
+    width: 100%;
+    max-width: 800px;
+    padding: 30px 20px;
 }
 
 h1 {
-    font-size: 60px;
-    line-height: 1.05;
-    margin-bottom: 25px;
+    color: #8e3a59;
+    font-size: 42px;
+    margin-bottom: 10px;
 }
 
-.hero p:not(.small) {
-    color: #cbd5e1;
-    font-size: 20px;
-    margin-bottom: 35px;
+.instruction {
+    color: #704052;
+    margin-bottom: 45px;
 }
 
-/* OBRAZEK */
+/* KOPERTA */
 
-.hero img {
-    width: 45%;
-    max-width: 550px;
+.envelope {
+    position: relative;
 
-    border-radius: 20px;
+    width: 420px;
+    height: 270px;
 
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+    margin: 0 auto 40px;
 
-    animation: floating 3s ease-in-out infinite;
+    cursor: pointer;
+
+    perspective: 1000px;
+}
+
+/* TYLNA CZĘŚĆ KOPERTY */
+
+.pocket {
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+
+    background: #d96b8a;
+
+    border-radius: 5px;
+
+    box-shadow:
+        0 20px 40px rgba(100, 30, 50, 0.25);
+
+    z-index: 3;
+}
+
+/* PRZEDNIA KLAPA */
+
+.flap {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 0;
+    height: 0;
+
+    border-left: 210px solid transparent;
+    border-right: 210px solid transparent;
+    border-top: 150px solid #c65375;
+
+    transform-origin: top center;
+
+    transition: transform 0.8s ease;
+
+    z-index: 5;
+}
+
+/* BOCZNE ZAGIĘCIA */
+
+.pocket::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    bottom: 0;
+
+    border-left: 210px solid #e889a3;
+    border-top: 135px solid transparent;
+
+    z-index: 4;
+}
+
+.pocket::after {
+    content: "";
+
+    position: absolute;
+
+    right: 0;
+    bottom: 0;
+
+    border-right: 210px solid #e889a3;
+    border-top: 135px solid transparent;
+
+    z-index: 4;
+}
+
+/* LIST */
+
+.letter {
+    position: absolute;
+
+    left: 35px;
+    bottom: 10px;
+
+    width: 350px;
+    height: 240px;
+
+    background: #fffaf5;
+
+    border-radius: 5px;
+
+    z-index: 2;
+
+    transition:
+        transform 1s ease,
+        bottom 1s ease;
+
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+
+    overflow: hidden;
+}
+
+.letter-content {
+    padding: 25px;
+
+    color: #57333e;
+}
+
+.small-title {
+    color: #c65375;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 10px;
+}
+
+.letter h2 {
+    color: #8e3a59;
+
+    font-size: 28px;
+
+    margin-bottom: 15px;
+}
+
+.letter-content > p {
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.details {
+    margin-top: 15px;
+
+    padding: 10px;
+
+    background: #ffe8ee;
+
+    border-radius: 8px;
+
+    font-size: 13px;
+}
+
+.details p {
+    margin: 5px;
+}
+
+.ending {
+    margin-top: 12px;
+    font-weight: bold;
+}
+
+/* OTWIERANIE */
+
+.envelope.open .flap {
+    transform: rotateX(180deg);
+
+    z-index: 1;
+}
+
+.envelope.open .letter {
+    bottom: 150px;
+
+    transform: scale(1.08);
+
+    z-index: 4;
 }
 
 /* PRZYCISK */
 
-.button {
-    display: inline-block;
+button {
+    border: none;
 
-    padding: 15px 25px;
+    padding: 15px 28px;
 
-    background: #3b82f6;
+    border-radius: 30px;
+
+    background: #c65375;
+
     color: white;
 
-    text-decoration: none;
+    font-size: 16px;
 
-    border-radius: 10px;
+    font-weight: bold;
+
+    cursor: pointer;
 
     transition: 0.3s;
+
+    box-shadow: 0 8px 20px rgba(130, 40, 70, 0.25);
 }
 
-.button:hover {
-    transform: translateY(-5px);
-    background: #2563eb;
+button:hover {
+    transform: translateY(-3px);
 
-    box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+    background: #a83f60;
+
+    box-shadow: 0 12px 25px rgba(130, 40, 70, 0.3);
 }
 
-/* O MNIE */
+/* MAŁA ANIMACJA KOPERTY */
 
-.about {
-    padding: 100px 8%;
-    text-align: center;
-    background: #111827;
+.envelope:not(.open) {
+    animation: float 3s ease-in-out infinite;
 }
 
-.about h2 {
-    font-size: 40px;
-    margin-bottom: 20px;
-}
+@keyframes float {
 
-.about p {
-    max-width: 700px;
-    margin: auto;
-
-    color: #cbd5e1;
-    font-size: 18px;
-    line-height: 1.7;
-}
-
-/* STOPKA */
-
-footer {
-    text-align: center;
-    padding: 30px;
-    color: #94a3b8;
-}
-
-/* ANIMACJE */
-
-@keyframes floating {
     0%, 100% {
         transform: translateY(0);
     }
 
     50% {
-        transform: translateY(-15px);
-    }
-}
-
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateX(-50px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateX(0);
+        transform: translateY(-8px);
     }
 }
 
 /* TELEFON */
 
-@media (max-width: 800px) {
-
-    .hero {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .hero img {
-        width: 90%;
-    }
+@media (max-width: 600px) {
 
     h1 {
-        font-size: 40px;
+        font-size: 32px;
     }
 
-    nav {
-        padding: 0 5%;
+    .envelope {
+        transform: scale(0.75);
+        margin-top: -20px;
+        margin-bottom: 10px;
+    }
+
+    .envelope.open {
+        transform: scale(0.75);
+    }
+
+    .instruction {
+        margin-bottom: 20px;
     }
 }
 ```
