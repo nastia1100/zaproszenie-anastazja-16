@@ -4,57 +4,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Moja strona</title>
-
+    <title>Zaproszenie na 16. urodziny 💌</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <nav>
-        <h2>MojaStrona</h2>
+    <div class="container">
 
-        <div>
-            <a href="#home">Start</a>
-            <a href="#about">O mnie</a>
-        </div>
-    </nav>
+        <h1>💌 Zaproszenie</h1>
+        <p class="instruction">Kliknij kopertę, aby ją otworzyć</p>
 
-    <main id="home">
+        <div class="envelope" id="envelope">
 
-        <section class="hero">
-            <div>
-                <p class="small">WITAJ NA MOJEJ STRONIE 👋</p>
+            <!-- KOPERTA -->
+            <div class="flap"></div>
+            <div class="pocket"></div>
 
-                <h1>Moja pierwsza<br>strona internetowa</h1>
+            <!-- ZAPROSZENIE -->
+            <div class="letter">
+                <div class="letter-content">
+                    <p class="small-title">✨ ZAPRASZAM ✨</p>
 
-                <p>
-                    Zrobiłem ją samodzielnie przy użyciu HTML i CSS.
-                </p>
+                    <h2>Na moje<br>16. urodziny! 🎂</h2>
 
-                <a class="button" href="#about">Zobacz więcej</a>
+                    <p>
+                        Będzie mi bardzo miło,
+                        jeśli będziesz razem ze mną
+                        świętować ten wyjątkowy dzień!
+                    </p>
+
+                    <div class="details">
+                        <p>📅 <strong>Data:</strong> 20 września 2026</p>
+                        <p>⏰ <strong>Godzina:</strong> 17:00</p>
+                        <p>📍 <strong>Miejsce:</strong> Mój dom</p>
+                    </div>
+
+                    <p class="ending">
+                        Do zobaczenia! 🥳
+                    </p>
+                </div>
             </div>
 
-            <img
-                src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=800"
-                alt="Komputer i elektronika">
-        </section>
+        </div>
 
-        <section id="about" class="about">
-            <h2>O stronie</h2>
+        <button id="openButton">Otwórz kopertę 💌</button>
 
-            <p>
-                Ta strona działa dzięki GitHub Pages.
-                Możesz zmienić tutaj tekst, zdjęcia, kolory,
-                przyciski i praktycznie wszystko, co chcesz!
-            </p>
-        </section>
+    </div>
 
-    </main>
+    <script>
+        const envelope = document.getElementById("envelope");
+        const button = document.getElementById("openButton");
 
-    <footer>
-        <p>© 2026 Moja Strona</p>
-    </footer>
+        button.addEventListener("click", () => {
+            envelope.classList.toggle("open");
+
+            if (envelope.classList.contains("open")) {
+                button.textContent = "Zamknij kopertę 💌";
+            } else {
+                button.textContent = "Otwórz kopertę 💌";
+            }
+        });
+
+        envelope.addEventListener("click", () => {
+            envelope.classList.toggle("open");
+
+            if (envelope.classList.contains("open")) {
+                button.textContent = "Zamknij kopertę 💌";
+            } else {
+                button.textContent = "Otwórz kopertę 💌";
+            }
+        });
+    </script>
 
 </body>
 </html>
