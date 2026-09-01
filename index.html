@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -8,38 +9,42 @@
 
     <style>
 
-        /* ================================
-           PODSTAWY
-        ================================= */
-
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
 
+
+        /* =====================================
+           TŁO
+        ===================================== */
+
         body {
-            min-height: 100vh;
+            width: 100%;
+            height: 100vh;
+
+            overflow: hidden;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
 
             font-family: Arial, sans-serif;
 
             background:
                 radial-gradient(
-                    circle at 50% 45%,
-                    #172d50 0%,
-                    #0b1a32 48%,
-                    #050d1b 100%
+                    ellipse at center,
+                    #1b3155 0%,
+                    #0c1b32 48%,
+                    #050c18 100%
                 );
 
             color: white;
-
-            overflow: hidden;
         }
 
 
-        /* ================================
-           DELIKATNA TEKSTURA TŁA
-        ================================= */
+        /* delikatna faktura */
 
         body::before {
             content: "";
@@ -49,111 +54,104 @@
 
             pointer-events: none;
 
-            opacity: 0.12;
+            opacity: 0.15;
 
-            background-image:
+            background:
                 repeating-linear-gradient(
-                    0deg,
+                    90deg,
                     transparent 0px,
-                    transparent 3px,
-                    rgba(255,255,255,0.025) 4px
+                    transparent 4px,
+                    rgba(255,255,255,0.015) 5px
                 );
         }
 
 
-        /* ================================
-           EKRAN
-        ================================= */
-
-        .screen {
-            width: 100%;
-            height: 100vh;
-
-            display: flex;
-            flex-direction: column;
-
-            justify-content: center;
-            align-items: center;
-
-            position: relative;
-        }
-
-
-        /* ================================
-           TYTUŁ
-        ================================= */
+        /* =====================================
+           NAGŁÓWEK
+        ===================================== */
 
         .heading {
-            position: absolute;
+            position: fixed;
 
             top: 9%;
+            left: 50%;
+
+            transform: translateX(-50%);
 
             text-align: center;
 
             transition:
                 opacity 0.5s ease,
-                transform 0.6s ease;
+                transform 0.7s ease;
         }
 
         .heading h1 {
-            font-family: Georgia, "Times New Roman", serif;
-
-            font-size: 46px;
+            font-family:
+                Georgia,
+                "Times New Roman",
+                serif;
 
             font-weight: normal;
 
-            letter-spacing: 2px;
+            font-size: 45px;
 
-            color: #f4f5f7;
+            letter-spacing: 3px;
+
+            color: #f5f3ed;
         }
 
         .heading p {
-            margin-top: 10px;
+            margin-top: 12px;
 
-            font-size: 14px;
+            color: #9daec6;
+
+            font-size: 13px;
 
             letter-spacing: 1px;
-
-            color: #91a2bd;
         }
 
 
-        /* ================================
-           KOPERTA
-        ================================= */
+        /* =====================================
+           SCENA
+        ===================================== */
 
-        .envelope-area {
+        .scene {
             position: relative;
 
-            width: 480px;
-            height: 310px;
-
-            transition:
-                opacity 0.7s ease,
-                transform 0.8s ease;
+            width: 500px;
+            height: 330px;
         }
 
+
+        /* =====================================
+           KOPERTA
+        ===================================== */
 
         .envelope {
             position: absolute;
 
-            width: 100%;
-            height: 100%;
+            width: 480px;
+            height: 300px;
+
+            left: 50%;
+            top: 50%;
+
+            transform:
+                translate(-50%, -50%);
 
             cursor: pointer;
 
-            perspective: 1000px;
-
             filter:
                 drop-shadow(
-                    0 30px 35px rgba(0,0,0,0.5)
+                    0 30px 40px rgba(0,0,0,0.55)
                 );
+
+            transition:
+                transform 0.4s ease;
         }
 
 
-        /* ================================
-           TYŁ KOPERTY
-        ================================= */
+        /* główny materiał koperty */
 
         .envelope-back {
             position: absolute;
@@ -164,26 +162,84 @@
 
             background:
                 linear-gradient(
-                    145deg,
-                    #122d55 0%,
-                    #0a2143 45%,
-                    #071a36 100%
+                    120deg,
+                    #102b52 0%,
+                    #0a2347 35%,
+                    #071b39 70%,
+                    #05152e 100%
                 );
 
             border:
                 1px solid rgba(255,255,255,0.08);
 
             box-shadow:
-                inset 0 1px 0 rgba(255,255,255,0.08),
-                inset 0 -15px 25px rgba(0,0,0,0.18);
-
-            z-index: 1;
+                inset 0 2px 3px rgba(255,255,255,0.08),
+                inset 0 -15px 25px rgba(0,0,0,0.2);
         }
 
 
-        /* ================================
-           DELIKATNE ZAGIĘCIA
-        ================================= */
+        /* delikatne złote obramowanie */
+
+        .gold-border {
+            position: absolute;
+
+            inset: 9px;
+
+            border:
+                1px solid rgba(207,174,91,0.45);
+
+            border-radius: 3px;
+
+            pointer-events: none;
+
+            z-index: 2;
+        }
+
+
+        /* =====================================
+           KARTKA W KOPERCIE
+        ===================================== */
+
+        .letter {
+            position: absolute;
+
+            width: 400px;
+            height: 275px;
+
+            left: 50%;
+            top: 50%;
+
+            transform:
+                translate(-50%, -50%);
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #fffefa,
+                    #f1eee5
+                );
+
+            color: #18263d;
+
+            border-radius: 3px;
+
+            box-shadow:
+                0 15px 35px rgba(0,0,0,0.35);
+
+            z-index: 3;
+
+            opacity: 0;
+
+            pointer-events: none;
+
+            transition:
+                opacity 0.4s ease;
+        }
+
+
+        /* =====================================
+           BOCZNE ZAGIĘCIA KOPERTY
+        ===================================== */
 
         .left-fold {
             position: absolute;
@@ -194,11 +250,15 @@
             width: 0;
             height: 0;
 
-            border-left: 240px solid #0d2850;
-            border-top: 155px solid transparent;
+            border-left:
+                240px solid #0b2448;
 
-            z-index: 3;
+            border-top:
+                150px solid transparent;
+
+            z-index: 5;
         }
+
 
         .right-fold {
             position: absolute;
@@ -209,184 +269,112 @@
             width: 0;
             height: 0;
 
-            border-right: 240px solid #0b2348;
-            border-top: 155px solid transparent;
+            border-right:
+                240px solid #091f40;
 
-            z-index: 3;
+            border-top:
+                150px solid transparent;
+
+            z-index: 5;
         }
 
 
-        /* ================================
-           KARTKA - CAŁKOWICIE SCHOWANA
-        ================================= */
-
-        .letter {
-            position: absolute;
-
-            width: 390px;
-            height: 270px;
-
-            left: 50%;
-            top: 50%;
-
-            transform:
-                translate(-50%, -50%)
-                scale(0.9);
-
-            opacity: 0;
-
-            pointer-events: none;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #fffefb,
-                    #f4f1e9
-                );
-
-            color: #18263d;
-
-            border-radius: 3px;
-
-            box-shadow:
-                0 25px 70px rgba(0,0,0,0.5);
-
-            padding: 34px;
-
-            z-index: 2;
-
-            transition:
-                opacity 0.45s ease,
-                transform 0.8s cubic-bezier(.2,.8,.2,1);
-        }
-
-
-        /* ================================
-           ZAWARTOŚĆ KARTKI
-        ================================= */
-
-        .letter-inner {
-            width: 100%;
-            height: 100%;
-
-            border:
-                1px solid #d8d2c5;
-
-            padding: 25px;
-
-            display: flex;
-            flex-direction: column;
-
-            justify-content: center;
-            align-items: center;
-
-            text-align: center;
-        }
-
-        .letter-small {
-            font-size: 10px;
-
-            letter-spacing: 4px;
-
-            color: #7a8493;
-
-            margin-bottom: 15px;
-        }
-
-        .letter h2 {
-            font-family:
-                Georgia,
-                "Times New Roman",
-                serif;
-
-            font-size: 31px;
-
-            font-weight: normal;
-
-            line-height: 1.25;
-
-            color: #12294d;
-
-            margin-bottom: 16px;
-        }
-
-        .letter-text {
-            max-width: 290px;
-
-            font-size: 13px;
-
-            line-height: 1.6;
-
-            color: #596574;
-        }
-
-        .info {
-            width: 100%;
-
-            margin-top: 17px;
-
-            padding: 11px 5px;
-
-            border-top: 1px solid #d4d0c7;
-            border-bottom: 1px solid #d4d0c7;
-
-            font-size: 11px;
-
-            line-height: 1.9;
-
-            letter-spacing: 0.5px;
-
-            color: #263955;
-        }
-
-        .ending {
-            margin-top: 13px;
-
-            font-family: Georgia, serif;
-
-            font-size: 14px;
-
-            color: #394b65;
-        }
-
-
-        /* ================================
-           PRZEDNIA CZĘŚĆ KOPERTY
-        ================================= */
+        /* =====================================
+           PRZÓD KOPERTY
+        ===================================== */
 
         .envelope-front {
             position: absolute;
 
             inset: 0;
 
-            border-radius: 5px;
-
             background:
                 linear-gradient(
                     145deg,
-                    #15345f,
-                    #0a2245
+                    #12315b,
+                    #092047
                 );
 
             clip-path:
                 polygon(
                     0 0,
-                    50% 57%,
+                    50% 58%,
                     100% 0,
                     100% 100%,
                     0 100%
                 );
 
-            box-shadow:
-                inset 0 1px 0 rgba(255,255,255,0.06);
+            border-radius: 5px;
 
-            z-index: 4;
+            z-index: 6;
+
+            box-shadow:
+                inset 0 1px 2px
+                rgba(255,255,255,0.08);
         }
 
 
-        /* ================================
+        /* =====================================
+           ZŁOTE LINIE NA KOPERCIE
+        ===================================== */
+
+        .gold-line-left {
+            position: absolute;
+
+            left: 0;
+            bottom: 0;
+
+            width: 235px;
+            height: 1px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    #c9a957
+                );
+
+            transform:
+                rotate(31deg);
+
+            transform-origin: left;
+
+            z-index: 7;
+
+            opacity: 0.65;
+        }
+
+
+        .gold-line-right {
+            position: absolute;
+
+            right: 0;
+            bottom: 0;
+
+            width: 235px;
+            height: 1px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #c9a957,
+                    transparent
+                );
+
+            transform:
+                rotate(-31deg);
+
+            transform-origin: right;
+
+            z-index: 7;
+
+            opacity: 0.65;
+        }
+
+
+        /* =====================================
            KLAPA
-        ================================= */
+        ===================================== */
 
         .flap {
             position: absolute;
@@ -395,13 +383,14 @@
             top: 0;
 
             width: 100%;
-            height: 175px;
+            height: 180px;
 
             background:
                 linear-gradient(
                     145deg,
-                    #193963,
-                    #0d274e
+                    #16375f,
+                    #0c274e 50%,
+                    #071d3c
                 );
 
             clip-path:
@@ -414,27 +403,55 @@
             transform-origin: top center;
 
             transition:
-                transform 0.8s cubic-bezier(.2,.8,.2,1);
+                transform 0.9s
+                cubic-bezier(.2,.8,.2,1);
 
-            z-index: 6;
+            z-index: 9;
 
             box-shadow:
-                inset 0 1px 0 rgba(255,255,255,0.08);
+                inset 0 1px 2px
+                rgba(255,255,255,0.08);
         }
 
 
-        /* ================================
-           ZŁOTA PIECZĘĆ
-        ================================= */
+        /* złota linia na klapie */
+
+        .flap::after {
+            content: "";
+
+            position: absolute;
+
+            left: 50%;
+            top: 5px;
+
+            width: 1px;
+            height: 165px;
+
+            background:
+                linear-gradient(
+                    to bottom,
+                    rgba(210,178,91,0.0),
+                    rgba(210,178,91,0.35)
+                );
+
+            transform:
+                rotate(0deg)
+                translateX(-50%);
+        }
+
+
+        /* =====================================
+           PIECZĘĆ
+        ===================================== */
 
         .seal {
             position: absolute;
 
             left: 50%;
-            top: 142px;
+            top: 140px;
 
-            width: 58px;
-            height: 58px;
+            width: 60px;
+            height: 60px;
 
             transform:
                 translateX(-50%);
@@ -444,30 +461,33 @@
             background:
                 radial-gradient(
                     circle at 35% 30%,
-                    #f5d995,
-                    #c99d48 55%,
-                    #8c6424 100%
+                    #f7dda0,
+                    #d4ad58 45%,
+                    #98702c 80%,
+                    #70501e 100%
                 );
 
             border:
-                3px solid #e2c478;
+                3px solid #e1c678;
 
             box-shadow:
-                0 5px 12px rgba(0,0,0,0.4),
-                inset 0 2px 3px rgba(255,255,255,0.45),
-                inset 0 -3px 5px rgba(70,40,0,0.25);
+                0 5px 12px rgba(0,0,0,0.45),
+                inset 2px 2px 4px
+                rgba(255,255,255,0.45),
+                inset -3px -3px 5px
+                rgba(70,40,0,0.3);
+
+            z-index: 12;
 
             display: flex;
-
             justify-content: center;
             align-items: center;
 
-            z-index: 8;
-
             transition:
-                opacity 0.3s ease,
+                opacity 0.4s ease,
                 transform 0.5s ease;
         }
+
 
         .seal::before {
             content: "A";
@@ -477,20 +497,17 @@
                 "Times New Roman",
                 serif;
 
-            font-size: 30px;
+            font-size: 31px;
 
             font-style: italic;
 
-            color: #533814;
-
-            text-shadow:
-                1px 1px 0 #f4d58a;
+            color: #503814;
         }
 
 
-        /* ================================
-           OTWIERANIE KOPERTY
-        ================================= */
+        /* =====================================
+           ETAP 1 — OTWARCIE KOPERTY
+        ===================================== */
 
         .envelope.open .flap {
             transform:
@@ -499,31 +516,100 @@
             z-index: 2;
         }
 
+
         .envelope.open .seal {
             opacity: 0;
 
             transform:
                 translateX(-50%)
-                scale(0.4);
+                scale(0.3);
         }
 
 
-        /* ================================
-           KARTKA PO OTWARCIU
-           
-           WAŻNE:
-           kartka jest ustawiana względem
-           CAŁEGO ekranu, a nie góry koperty.
-        ================================= */
+        /*
+        Kartka po otwarciu koperty
+        nadal pozostaje w środku.
+        */
 
         .envelope.open .letter {
+            opacity: 1;
+        }
+
+
+        /* =====================================
+           PRZYCISK
+        ===================================== */
+
+        .action {
+            position: fixed;
+
+            left: 50%;
+            bottom: 9%;
+
+            transform:
+                translateX(-50%);
+
+            padding: 15px 30px;
+
+            border-radius: 30px;
+
+            border:
+                1px solid rgba(207,174,91,0.55);
+
+            background:
+                rgba(12,28,53,0.8);
+
+            color: #e8d092;
+
+            font-size: 14px;
+
+            letter-spacing: 0.8px;
+
+            cursor: pointer;
+
+            transition:
+                opacity 0.4s ease,
+                transform 0.3s ease,
+                background 0.3s ease;
+
+            z-index: 50;
+        }
+
+
+        .action:hover {
+            background:
+                rgba(30,53,87,0.9);
+
+            transform:
+                translateX(-50%)
+                translateY(-3px);
+        }
+
+
+        /* =====================================
+           TEKST NA PRZYCISKU
+        ===================================== */
+
+        .action.pull {
+            display: none;
+        }
+
+
+        /* =====================================
+           ETAP 2
+           
+           WYCIĄGANIE KARTKI
+        ===================================== */
+
+        .scene.pulling .letter {
+
             position: fixed;
 
             left: 50%;
             top: 50%;
 
             width: min(620px, 88vw);
-            height: min(700px, 78vh);
+            height: min(700px, 80vh);
 
             transform:
                 translate(-50%, -50%)
@@ -535,27 +621,39 @@
 
             pointer-events: auto;
 
-            padding: 42px;
-
             animation:
-                letterAppear 0.8s
+                pullLetter 1.2s
                 cubic-bezier(.2,.8,.2,1)
                 forwards;
         }
 
 
-        @keyframes letterAppear {
+        @keyframes pullLetter {
 
             0% {
-                opacity: 0;
+
+                opacity: 1;
+
+                transform:
+                    translate(-50%, 25%)
+                    scale(0.72);
+            }
+
+            35% {
+
+                transform:
+                    translate(-50%, -60%)
+                    scale(0.85);
+            }
+
+            70% {
 
                 transform:
                     translate(-50%, -50%)
-                    scale(0.65);
+                    scale(1.04);
             }
 
             100% {
-                opacity: 1;
 
                 transform:
                     translate(-50%, -50%)
@@ -564,65 +662,133 @@
         }
 
 
-        /* ================================
-           KIEDY OTWARTE
-        ================================= */
+        /* =====================================
+           ZAWARTOŚĆ ZAPROSZENIA
+        ===================================== */
 
-        .screen.open .heading {
-            opacity: 0;
+        .letter-inner {
+            width: calc(100% - 40px);
+            height: calc(100% - 40px);
 
-            transform:
-                translateY(-20px);
+            margin: 20px;
+
+            border:
+                1px solid #cfc8b8;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            align-items: center;
+
+            text-align: center;
+
+            padding: 35px;
         }
 
 
-        .screen.open .envelope-area {
+        .letter-small {
+            font-size: 10px;
+
+            letter-spacing: 5px;
+
+            color: #8b7953;
+
+            margin-bottom: 22px;
+        }
+
+
+        .letter h2 {
+            font-family:
+                Georgia,
+                "Times New Roman",
+                serif;
+
+            font-size: 38px;
+
+            line-height: 1.25;
+
+            font-weight: normal;
+
+            color: #142a4b;
+
+            margin-bottom: 20px;
+        }
+
+
+        .letter-text {
+            max-width: 440px;
+
+            font-size: 15px;
+
+            line-height: 1.7;
+
+            color: #596575;
+        }
+
+
+        .details {
+            margin-top: 25px;
+
+            padding: 17px 30px;
+
+            border-top:
+                1px solid #cfc8b8;
+
+            border-bottom:
+                1px solid #cfc8b8;
+
+            font-size: 13px;
+
+            line-height: 2;
+
+            color: #293d5a;
+
+            letter-spacing: 0.5px;
+        }
+
+
+        .ending {
+            margin-top: 22px;
+
+            font-family:
+                Georgia,
+                serif;
+
+            font-size: 16px;
+
+            color: #394b64;
+        }
+
+
+        /* =====================================
+           PO WYCIĄGNIĘCIU
+        ===================================== */
+
+        .scene.pulled .envelope {
+            opacity: 0.75;
+
+            transform:
+                translate(-50%, -50%)
+                scale(0.82);
+        }
+
+
+        .scene.pulled .letter {
             opacity: 1;
         }
 
 
-        /* ================================
-           PRZYCISK
-        ================================= */
-
-        .button {
-            margin-top: 45px;
-
-            padding: 14px 30px;
-
-            border-radius: 30px;
-
-            border:
-                1px solid rgba(255,255,255,0.18);
-
-            background:
-                rgba(255,255,255,0.07);
-
-            color: #f4f5f7;
-
-            font-size: 14px;
-
-            letter-spacing: 0.5px;
-
-            cursor: pointer;
-
-            transition:
-                background 0.3s ease,
-                transform 0.3s ease;
-        }
-
-        .button:hover {
-            background:
-                rgba(255,255,255,0.14);
-
-            transform:
-                translateY(-3px);
+        .scene.pulled ~ .heading {
+            opacity: 0;
         }
 
 
-        /* ================================
-           MOBILE
-        ================================= */
+        /* =====================================
+           RESPONSIVE
+        ===================================== */
 
         @media (max-width: 600px) {
 
@@ -635,45 +801,31 @@
             }
 
             .heading p {
-                font-size: 12px;
-            }
-
-            .envelope-area {
-                width: 340px;
-                height: 220px;
-            }
-
-            .letter {
-                width: 300px;
-                height: 205px;
-
-                padding: 20px;
-            }
-
-            .letter-inner {
-                padding: 15px;
-            }
-
-            .letter h2 {
-                font-size: 22px;
-            }
-
-            .letter-text {
-                font-size: 10px;
-            }
-
-            .info {
-                font-size: 9px;
-
-                margin-top: 10px;
-            }
-
-            .ending {
                 font-size: 11px;
             }
 
+            .scene {
+                width: 350px;
+                height: 220px;
+            }
+
+            .envelope {
+                width: 340px;
+                height: 215px;
+            }
+
+            .left-fold {
+                border-left-width: 170px;
+                border-top-width: 110px;
+            }
+
+            .right-fold {
+                border-right-width: 170px;
+                border-top-width: 110px;
+            }
+
             .flap {
-                height: 125px;
+                height: 130px;
             }
 
             .seal {
@@ -687,159 +839,194 @@
                 font-size: 23px;
             }
 
-            /*
-              KARTKA NA ŚRODKU TELEFONU
-            */
+            .scene.pulling .letter {
 
-            .envelope.open .letter {
                 width: 88vw;
-                height: 70vh;
+
+                height: 76vh;
+
+                padding: 0;
+            }
+
+            .letter-inner {
+                width: calc(100% - 25px);
+                height: calc(100% - 25px);
+
+                margin: 12px;
 
                 padding: 18px;
             }
 
-            .envelope.open .letter-inner {
-                padding: 18px;
+            .letter-small {
+                font-size: 8px;
+
+                letter-spacing: 3px;
             }
 
-            .envelope.open .letter h2 {
-                font-size: 25px;
+            .letter h2 {
+                font-size: 27px;
             }
 
-            .envelope.open .letter-text {
+            .letter-text {
                 font-size: 12px;
             }
 
-            .envelope.open .info {
+            .details {
                 font-size: 10px;
+
+                padding: 10px 15px;
             }
 
-            .button {
-                margin-top: 40px;
+            .ending {
+                font-size: 13px;
             }
         }
 
     </style>
+
 </head>
 
 
 <body>
 
-    <div class="screen" id="screen">
 
-        <!-- TYTUŁ -->
+    <!-- =====================================
+         TYTUŁ
+    ===================================== -->
 
-        <div class="heading">
+    <div class="heading">
 
-            <h1>
-                Zaproszenie
-            </h1>
+        <h1>
+            Zaproszenie
+        </h1>
 
-            <p>
-                Otwórz kopertę, aby zobaczyć szczegóły
-            </p>
+        <p>
+            Otwórz kopertę
+        </p>
 
-        </div>
+    </div>
+
+
+    <!-- =====================================
+         SCENA
+    ===================================== -->
+
+    <div
+        class="scene"
+        id="scene"
+    >
 
 
         <!-- KOPERTA -->
 
-        <div class="envelope-area">
-
-            <div
-                class="envelope"
-                id="envelope"
-            >
-
-                <!-- TYŁ -->
-
-                <div class="envelope-back"></div>
+        <div
+            class="envelope"
+            id="envelope"
+        >
 
 
-                <!-- KARTKA -->
+            <!-- TYŁ -->
 
-                <div class="letter">
+            <div class="envelope-back"></div>
 
-                    <div class="letter-inner">
 
-                        <div class="letter-small">
-                            SERDECZNIE ZAPRASZAM
+            <!-- ZŁOTE OBRAMOWANIE -->
+
+            <div class="gold-border"></div>
+
+
+            <!-- KARTKA -->
+
+            <div class="letter">
+
+                <div class="letter-inner">
+
+                    <div class="letter-small">
+                        SERDECZNIE ZAPRASZAM
+                    </div>
+
+                    <h2>
+                        Na moje<br>
+                        16. urodziny
+                    </h2>
+
+                    <p class="letter-text">
+                        Będzie mi bardzo miło,
+                        jeśli będziesz razem ze mną
+                        świętować ten wyjątkowy dzień.
+                    </p>
+
+                    <div class="details">
+
+                        <div>
+                            <strong>
+                                20 WRZEŚNIA 2026
+                            </strong>
                         </div>
 
-                        <h2>
-                            Na moje<br>
-                            16. urodziny
-                        </h2>
-
-                        <p class="letter-text">
-                            Będzie mi bardzo miło,
-                            jeśli będziesz razem ze mną
-                            świętować ten wyjątkowy dzień.
-                        </p>
-
-                        <div class="info">
-
-                            <div>
-                                <strong>
-                                    20 WRZEŚNIA 2026
-                                </strong>
-                            </div>
-
-                            <div>
-                                GODZINA 17:00
-                            </div>
-
-                            <div>
-                                MÓJ DOM
-                            </div>
-
+                        <div>
+                            GODZINA 17:00
                         </div>
 
-                        <p class="ending">
-                            Do zobaczenia!
-                        </p>
+                        <div>
+                            MÓJ DOM
+                        </div>
 
                     </div>
 
+                    <p class="ending">
+                        Do zobaczenia!
+                    </p>
+
                 </div>
-
-
-                <!-- BOCZNE ZAGIĘCIA -->
-
-                <div class="left-fold"></div>
-
-                <div class="right-fold"></div>
-
-
-                <!-- PRZÓD -->
-
-                <div class="envelope-front"></div>
-
-
-                <!-- KLAPA -->
-
-                <div class="flap"></div>
-
-
-                <!-- PIECZĘĆ -->
-
-                <div class="seal"></div>
 
             </div>
 
+
+            <!-- BOCZNE ELEMENTY -->
+
+            <div class="left-fold"></div>
+
+            <div class="right-fold"></div>
+
+
+            <!-- PRZÓD -->
+
+            <div class="envelope-front"></div>
+
+
+            <!-- ZŁOTE LINIE -->
+
+            <div class="gold-line-left"></div>
+
+            <div class="gold-line-right"></div>
+
+
+            <!-- KLAPA -->
+
+            <div class="flap"></div>
+
+
+            <!-- PIECZĘĆ -->
+
+            <div class="seal"></div>
+
+
         </div>
 
-
-        <!-- PRZYCISK -->
-
-        <button
-            class="button"
-            id="button"
-        >
-            Otwórz kopertę
-        </button>
-
     </div>
+
+
+    <!-- =====================================
+         PRZYCISK
+    ===================================== -->
+
+    <button
+        class="action"
+        id="action"
+    >
+        Otwórz kopertę
+    </button>
 
 
     <script>
@@ -847,48 +1034,89 @@
         const envelope =
             document.getElementById("envelope");
 
-        const button =
-            document.getElementById("button");
+        const scene =
+            document.getElementById("scene");
 
-        const screen =
-            document.getElementById("screen");
-
-
-        function toggleEnvelope() {
-
-            const isOpen =
-                envelope.classList.toggle("open");
-
-            screen.classList.toggle(
-                "open",
-                isOpen
-            );
+        const action =
+            document.getElementById("action");
 
 
-            if (isOpen) {
+        let state = "closed";
 
-                button.textContent =
-                    "Zamknij zaproszenie";
 
-            } else {
+        action.addEventListener("click", function () {
 
-                button.textContent =
-                    "Otwórz kopertę";
+
+            /* =========================
+               ETAP 1
+            ========================= */
+
+            if (state === "closed") {
+
+                envelope.classList.add("open");
+
+                state = "opened";
+
+                action.textContent =
+                    "Wyciągnij zaproszenie";
+
+
+                document
+                    .querySelector(".heading p")
+                    .textContent =
+                    "Teraz wyciągnij kartkę";
+
+
+                return;
+            }
+
+
+            /* =========================
+               ETAP 2
+            ========================= */
+
+            if (state === "opened") {
+
+                scene.classList.add("pulling");
+
+                state = "pulled";
+
+                action.textContent =
+                    "Zaproszenie";
+
+                setTimeout(function () {
+
+                    scene.classList.add("pulled");
+
+                }, 1200);
 
             }
 
-        }
+        });
 
+
+        /* Kliknięcie samej koperty */
 
         envelope.addEventListener(
             "click",
-            toggleEnvelope
-        );
+            function () {
 
+                if (state === "closed") {
 
-        button.addEventListener(
-            "click",
-            toggleEnvelope
+                    envelope.classList.add("open");
+
+                    state = "opened";
+
+                    action.textContent =
+                        "Wyciągnij zaproszenie";
+
+                    document
+                        .querySelector(".heading p")
+                        .textContent =
+                        "Teraz wyciągnij kartkę";
+                }
+
+            }
         );
 
     </script>
