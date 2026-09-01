@@ -1,82 +1,505 @@
-```html
 <!DOCTYPE html>
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zaproszenie na 16. urodziny 💌</title>
-    <link rel="stylesheet" href="style.css">
+
+    <title>Zaproszenie 💌</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background:
+                radial-gradient(circle at 20% 20%, #ffd6e7 0%, transparent 30%),
+                radial-gradient(circle at 80% 80%, #e8c7ff 0%, transparent 30%),
+                linear-gradient(135deg, #fff0f6, #f3e8ff);
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            overflow: hidden;
+            color: #54213a;
+        }
+
+        /* TŁO */
+
+        .background-heart {
+            position: fixed;
+            font-size: 30px;
+            opacity: 0.25;
+            animation: heartFloat 6s infinite ease-in-out;
+            pointer-events: none;
+        }
+
+        .heart1 {
+            top: 10%;
+            left: 10%;
+        }
+
+        .heart2 {
+            top: 20%;
+            right: 12%;
+            animation-delay: 2s;
+        }
+
+        .heart3 {
+            bottom: 15%;
+            left: 15%;
+            animation-delay: 1s;
+        }
+
+        .heart4 {
+            bottom: 10%;
+            right: 15%;
+            animation-delay: 3s;
+        }
+
+        @keyframes heartFloat {
+            0%, 100% {
+                transform: translateY(0) rotate(0);
+            }
+
+            50% {
+                transform: translateY(-25px) rotate(10deg);
+            }
+        }
+
+        /* GŁÓWNY EKRAN */
+
+        .wrapper {
+            text-align: center;
+            width: 100%;
+            padding: 30px;
+        }
+
+        .title {
+            font-size: 42px;
+            color: #9d365d;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #8b6070;
+            margin-bottom: 50px;
+            font-size: 17px;
+        }
+
+        /* KOPERTA */
+
+        .envelope {
+            width: 430px;
+            height: 280px;
+            margin: auto;
+            position: relative;
+            cursor: pointer;
+
+            animation: envelopeFloat 3s ease-in-out infinite;
+
+            filter: drop-shadow(0 25px 25px rgba(100, 30, 60, 0.18));
+        }
+
+        @keyframes envelopeFloat {
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* TYŁ KOPERTY */
+
+        .envelope-back {
+            position: absolute;
+            inset: 0;
+
+            background: linear-gradient(
+                145deg,
+                #e987a7,
+                #c9577d
+            );
+
+            border-radius: 10px;
+            z-index: 1;
+        }
+
+        /* KARTKA */
+
+        .letter {
+            position: absolute;
+
+            width: 370px;
+            height: 250px;
+
+            left: 30px;
+            bottom: 15px;
+
+            background: #fffdfb;
+
+            border-radius: 8px;
+
+            z-index: 2;
+
+            padding: 25px;
+
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+
+            transition:
+                transform 1s ease,
+                bottom 1s ease;
+
+            overflow: hidden;
+        }
+
+        .letter h2 {
+            color: #a33c62;
+            font-size: 27px;
+            margin: 8px 0 12px;
+        }
+
+        .letter .small {
+            color: #d45c82;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 3px;
+        }
+
+        .letter p {
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .details {
+            background: #fff0f5;
+            border-radius: 10px;
+            padding: 10px;
+            margin-top: 12px;
+            text-align: left;
+        }
+
+        .details p {
+            margin: 5px 0;
+        }
+
+        .ending {
+            margin-top: 12px;
+            font-weight: bold;
+            color: #a33c62;
+        }
+
+        /* PRZEDNIA CZĘŚĆ KOPERTY */
+
+        .envelope-front {
+            position: absolute;
+            inset: 0;
+
+            z-index: 4;
+
+            background: #db6b8d;
+
+            clip-path: polygon(
+                0 0,
+                50% 55%,
+                100% 0,
+                100% 100%,
+                0 100%
+            );
+
+            border-radius: 10px;
+        }
+
+        /* KLAPA */
+
+        .flap {
+            position: absolute;
+
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 155px;
+
+            background: linear-gradient(
+                145deg,
+                #c94f78,
+                #e27b9b
+            );
+
+            clip-path: polygon(
+                0 0,
+                100% 0,
+                50% 100%
+            );
+
+            transform-origin: top center;
+
+            transition: transform 0.9s ease;
+
+            z-index: 5;
+        }
+
+        /* SERDUSZKO */
+
+        .seal {
+            position: absolute;
+
+            left: 50%;
+            top: 125px;
+
+            transform: translateX(-50%);
+
+            width: 55px;
+            height: 55px;
+
+            background: #ff477e;
+
+            border-radius: 50%;
+
+            z-index: 6;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            font-size: 27px;
+
+            box-shadow: 0 5px 15px rgba(180, 30, 80, 0.3);
+
+            transition: 0.5s;
+        }
+
+        /* OTWARTA KOPERTA */
+
+        .envelope.open {
+            animation: none;
+        }
+
+        .envelope.open .flap {
+            transform: rotateX(180deg);
+            z-index: 1;
+        }
+
+        .envelope.open .letter {
+            bottom: 135px;
+            transform: scale(1.05);
+            z-index: 3;
+        }
+
+        .envelope.open .seal {
+            opacity: 0;
+            transform: translateX(-50%) scale(0);
+        }
+
+        /* PRZYCISK */
+
+        .open-button {
+            margin-top: 50px;
+
+            border: none;
+
+            padding: 15px 30px;
+
+            border-radius: 50px;
+
+            background: linear-gradient(
+                135deg,
+                #c94f78,
+                #e56c91
+            );
+
+            color: white;
+
+            font-size: 16px;
+            font-weight: bold;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 10px 25px rgba(170, 50, 90, 0.25);
+
+            transition: 0.3s;
+        }
+
+        .open-button:hover {
+            transform: translateY(-4px) scale(1.03);
+
+            box-shadow:
+                0 15px 30px rgba(170, 50, 90, 0.35);
+        }
+
+        /* TELEFON */
+
+        @media (max-width: 600px) {
+
+            body {
+                overflow-y: auto;
+            }
+
+            .title {
+                font-size: 32px;
+            }
+
+            .subtitle {
+                margin-bottom: 30px;
+            }
+
+            .envelope {
+                width: 330px;
+                height: 220px;
+            }
+
+            .letter {
+                width: 290px;
+                height: 200px;
+                left: 20px;
+                padding: 17px;
+            }
+
+            .letter h2 {
+                font-size: 21px;
+            }
+
+            .letter p {
+                font-size: 11px;
+            }
+
+            .details {
+                padding: 6px;
+                margin-top: 7px;
+            }
+
+            .flap {
+                height: 120px;
+            }
+
+            .seal {
+                top: 98px;
+                width: 45px;
+                height: 45px;
+                font-size: 22px;
+            }
+
+            .envelope.open .letter {
+                bottom: 110px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-    <div class="container">
+    <!-- DEKORACJE -->
 
-        <h1>💌 Zaproszenie</h1>
-        <p class="instruction">Kliknij kopertę, aby ją otworzyć</p>
+    <div class="background-heart heart1">💗</div>
+    <div class="background-heart heart2">💖</div>
+    <div class="background-heart heart3">💕</div>
+    <div class="background-heart heart4">💗</div>
+
+    <div class="wrapper">
+
+        <h1 class="title">💌 Zaproszenie</h1>
+
+        <p class="subtitle">
+            Mam dla Ciebie coś specjalnego...
+        </p>
+
+        <!-- KOPERTA -->
 
         <div class="envelope" id="envelope">
 
-            <!-- KOPERTA -->
-            <div class="flap"></div>
-            <div class="pocket"></div>
+            <div class="envelope-back"></div>
 
             <!-- ZAPROSZENIE -->
+
             <div class="letter">
-                <div class="letter-content">
-                    <p class="small-title">✨ ZAPRASZAM ✨</p>
 
-                    <h2>Na moje<br>16. urodziny! 🎂</h2>
+                <p class="small">
+                    ✨ SERDECZNIE ZAPRASZAM ✨
+                </p>
 
-                    <p>
-                        Będzie mi bardzo miło,
-                        jeśli będziesz razem ze mną
-                        świętować ten wyjątkowy dzień!
-                    </p>
+                <h2>
+                    Na moje<br>
+                    16. urodziny! 🎂
+                </h2>
 
-                    <div class="details">
-                        <p>📅 <strong>Data:</strong> 20 września 2026</p>
-                        <p>⏰ <strong>Godzina:</strong> 17:00</p>
-                        <p>📍 <strong>Miejsce:</strong> Mój dom</p>
-                    </div>
+                <p>
+                    Będzie mi bardzo miło,
+                    jeśli będziesz razem ze mną
+                    świętować ten wyjątkowy dzień! 🥳
+                </p>
 
-                    <p class="ending">
-                        Do zobaczenia! 🥳
-                    </p>
+                <div class="details">
+
+                    <p>📅 <strong>Data:</strong> 20 września 2026</p>
+
+                    <p>⏰ <strong>Godzina:</strong> 17:00</p>
+
+                    <p>📍 <strong>Miejsce:</strong> Mój dom</p>
+
                 </div>
+
+                <p class="ending">
+                    Do zobaczenia! 💕
+                </p>
+
+            </div>
+
+            <!-- PRZÓD KOPERTY -->
+
+            <div class="envelope-front"></div>
+
+            <!-- KLAPA -->
+
+            <div class="flap"></div>
+
+            <!-- SERCE -->
+
+            <div class="seal">
+                💗
             </div>
 
         </div>
 
-        <button id="openButton">Otwórz kopertę 💌</button>
+        <button class="open-button" id="button">
+            Otwórz kopertę 💌
+        </button>
 
     </div>
 
     <script>
+
         const envelope = document.getElementById("envelope");
-        const button = document.getElementById("openButton");
+        const button = document.getElementById("button");
 
-        button.addEventListener("click", () => {
+        function toggleEnvelope() {
+
             envelope.classList.toggle("open");
 
             if (envelope.classList.contains("open")) {
-                button.textContent = "Zamknij kopertę 💌";
-            } else {
-                button.textContent = "Otwórz kopertę 💌";
-            }
-        });
 
-        envelope.addEventListener("click", () => {
-            envelope.classList.toggle("open");
-
-            if (envelope.classList.contains("open")) {
                 button.textContent = "Zamknij kopertę 💌";
+
             } else {
+
                 button.textContent = "Otwórz kopertę 💌";
+
             }
-        });
+        }
+
+        envelope.addEventListener("click", toggleEnvelope);
+
+        button.addEventListener("click", toggleEnvelope);
+
     </script>
 
 </body>
 </html>
-```
